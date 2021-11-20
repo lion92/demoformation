@@ -15,11 +15,7 @@ import fr.jcdecaux.demo.dao.entity.UserEntity;
 import fr.jcdecaux.demo.dto.UserDto;
 import fr.jcdecaux.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,6 +43,10 @@ public class UserController {
   public UserDto save(@RequestBody UserEntity user) {
     return this.userService.save(user);
   }
+
+
+
+
 
   // GetMapping("") PostMapping("") PutMapping("") OptionMapping("") DeleteMapping("")
   //  @PathVariable("nom"), @RequestBody
