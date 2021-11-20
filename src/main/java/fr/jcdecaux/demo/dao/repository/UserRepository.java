@@ -29,5 +29,4 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
   List<UserEntity> findByLastName(String lastName);
 
-  void deleteById(ID var1);
 }
