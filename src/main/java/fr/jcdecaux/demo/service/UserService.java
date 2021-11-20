@@ -57,4 +57,7 @@ public class UserService {
   public UserDto getById(Long id) {
     return this.modelMapper.map(this.userRepository.findById(id).get(), UserDto.class);
   }
+  public void delete(Long id){
+    this.userRepository.deleteById(id);
+  }
 }

@@ -18,37 +18,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController()
 public class UserController {
-  private final UserService userService;
+    private final UserService userService;
 
-  @Autowired
-  public UserController(UserService userService) {
-    this.userService = userService;
-  }
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
-  @GetMapping("/users")
-  public List<UserDto> getAll() {
-    return this.userService.getAll();
-  }
+    @GetMapping("/users")
+    public List<UserDto> getAll() {
+        return this.userService.getAll();
+    }
 
-  @GetMapping("/users/{user-id}")
-  public UserDto getById(@PathVariable("user-id") String id) {
-    return this.userService.getById(Long.valueOf(id));
-  }
-
-
-  @PostMapping("/users")
-  public UserDto save(@RequestBody UserEntity user) {
-    return this.userService.save(user);
-  }
+    @GetMapping("/users/{user-id}")
+    public UserDto getById(@PathVariable("user-id") String id) {
+        return this.userService.getById(Long.valueOf(id));
+    }
 
 
+    @PostMapping("/users")
+    public UserDto save(@RequestBody UserEntity user) {
+        return this.userService.save(user);
+    }
 
+    @PutMapping("/users/{user-id}")
+    public UserDto update(@PathVariable("user-id") long id, @RequestBody UserEntity user) {
+        Optional optional = this.userService.getAll().stream().filter(userServiceId -> userServiceId.getId() == id).findFirst();
+        if (optional.isPresent()) {
+            user.setId(id);
+            return this.userService.save(user);
+        } else {
+            System.out.println("Id n'existe pas!");
+            return null;
+        }
+    }
 
+    @DeleteMapping("/users/{user-id}")
+    public void delete(@PathVariable("user-id") long id, @RequestBody UserEntity user) {
+        Optional optional = this.userService.getAll().stream().filter(userServiceId -> userServiceId.getId() == id).findFirst();
+        if (optional.isPresent()) {
+            user.setId(id);
 
-  // GetMapping("") PostMapping("") PutMapping("") OptionMapping("") DeleteMapping("")
-  //  @PathVariable("nom"), @RequestBody
-  //add put delete todo
+            this.userService.delete(id);
+            System.out.println("id supprimé");
+        } else {
+            System.out.println("Id n'existe pas!");
+
+        }
+    }
+
+    // GetMapping("") PostMapping("") PutMapping("") OptionMapping("") DeleteMapping("")
+    //  @PathVariable("nom"), @RequestBody
+    //add put delete todo
 }
