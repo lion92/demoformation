@@ -52,7 +52,7 @@ public class UserController {
             user.setId(id);
             return this.userService.save(user);
         } else {
-            System.out.println("Id n'existe pas!");
+            System.out.println("Id doesn't exist");
             return null;
         }
     }
@@ -64,9 +64,9 @@ public class UserController {
             user.setId(id);
 
             this.userService.delete(id);
-            System.out.println("id supprimé");
+            System.out.println("Deleted ID");
         } else {
-            System.out.println("Id n'existe pas!");
+            System.out.println("Missing ID !");
 
         }
     }
