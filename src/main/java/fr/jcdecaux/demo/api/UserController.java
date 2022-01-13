@@ -58,17 +58,13 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{user-id}")
-    public void delete(@PathVariable("user-id") long id, @RequestBody UserEntity user) {
+    public void delete(@PathVariable("user-id") long id) {
         Optional optional = this.userService.getAll().stream().filter(userServiceId -> userServiceId.getId() == id).findFirst();
-        if (optional.isPresent()) {
-            user.setId(id);
+
 
             this.userService.delete(id);
             System.out.println("Deleted ID");
-        } else {
-            System.out.println("Missing ID !");
 
-        }
     }
 
     // GetMapping("") PostMapping("") PutMapping("") OptionMapping("") DeleteMapping("")
